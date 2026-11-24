@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Save the Date · Eelaram & Sineka</title>
+<meta name="theme-color" content="#f9edd6">
+<meta name="description" content="Save the Date – Eelaram & Sineka, June 25 & 26, 2027">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%237d1020'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='%23f9edd6' stroke-opacity='.5'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='24' fill='%23f9edd6'%3EES%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="image" href="assets/envelope.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f9edd6;
+  --wine:#7d1020;
+  --wine-deep:#5e0a17;
+  --ink:#3a1c1a;
+  --muted:#6f5846;
+  --line:rgba(94,10,23,.34);
+  --script:"Great Vibes","Snell Roundhand","Apple Chancery",cursive;
+  --serif:"Libre Caslon Text","Iowan Old Style",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;background:var(--paper)}
+body{
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body.locked{overflow:hidden;height:100dvh}
+/* echtes Papier als fester Hintergrund (= letztes Bild des Intro-Videos) */
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:var(--paper) url(assets/paper.jpg) center/cover no-repeat}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+img{display:block;max-width:100%}
+
+/* ───────── Intro: Umschlag-Video ───────── */
+.intro{
+  position:fixed;inset:0;z-index:50;
+  background:var(--paper) url(assets/paper.jpg) center/cover no-repeat;
+  display:flex;justify-content:center;
+  transition:opacity 1.1s ease, visibility 0s linear 1.1s;
+  cursor:pointer;
+}
+.intro.done{opacity:0;visibility:hidden;pointer-events:none}
+.intro .stage{position:relative;height:100%;width:100%;overflow:hidden}
+.intro video,.intro .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.intro .poster{transition:opacity .25s linear}
+.intro.playing .poster{opacity:0}
+@media (min-aspect-ratio:3/4){ /* Tablet/Desktop: Hochformat-Bühne in der Mitte */
+  .intro .stage{width:calc(100dvh * 9 / 16);box-shadow:0 0 80px rgba(80,50,20,.18)}
+}
+.open-btn{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+.open-btn:focus-visible{outline:2px solid var(--wine);outline-offset:-10px}
+.hint{
+  position:absolute;left:0;right:0;bottom:max(9%,calc(env(safe-area-inset-bottom) + 40px));z-index:1;
+  text-align:center;font-size:11.5px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:#6d0d1a;text-shadow:0 0 10px #f9edd6,0 0 4px #f9edd6;
+  animation:pulse 2.8s ease-in-out infinite;transition:opacity .4s;pointer-events:none;
+}
+.intro.playing .hint{opacity:0;animation:none}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* Musik-Schalter */
+.sound{
+  position:fixed;z-index:40;bottom:max(16px,env(safe-area-inset-bottom));right:16px;
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--wine);border:1px solid var(--line);background:rgba(249,237,214,.7);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity .6s;
+}
+.sound.show{opacity:1;pointer-events:auto}
+.sound svg{width:18px;height:18px}
+.sound .off{display:none}
+.sound.muted .on{display:none}
+.sound.muted .off{display:block}
+.sound:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+
+/* ───────── Inhalt ───────── */
+main{position:relative;max-width:560px;margin:0 auto;padding:0 22px 90px}
+section{padding:76px 0 0;text-align:center}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.rule{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto;color:var(--wine)}
+.rule::before,.rule::after{content:"";height:1px;width:70px;background:var(--line)}
+.rule span{font-size:13px;line-height:1}
+h2{font-family:var(--script);font-weight:400;font-size:clamp(46px,12.5vw,60px);line-height:1.1;color:var(--wine-deep);margin-top:8px}
+
+/* Hero */
+.hero{padding-top:max(44px,env(safe-area-inset-top));min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.card{position:relative;width:min(100%,410px);margin-top:22px;filter:drop-shadow(0 16px 18px rgba(60,10,15,.28)) drop-shadow(0 2px 2px rgba(60,10,15,.25))}
+.card img{width:100%;height:auto}
+.card-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f4e6d2;text-align:center;padding:0 24%}
+.card-text h1{font-family:var(--script);font-weight:400;font-size:clamp(48px,14.5vw,70px);line-height:.95;transform:translateX(-.05em) rotate(-4deg);margin-bottom:.36em;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+.card-text h1 span{display:block;white-space:nowrap}
+.card-text p{font-size:clamp(12.5px,3.7vw,15.5px);letter-spacing:.1em;text-shadow:0 1px 2px rgba(0,0,0,.4);line-height:1.35;white-space:nowrap}
+.names{margin-top:34px;font-family:var(--script);font-size:clamp(42px,12vw,58px);line-height:1.12;color:var(--wine-deep)}
+.names .amp{display:block;font-size:.7em;color:var(--muted);margin:.05em 0}
+.scrollcue{margin-top:30px;width:1px;height:44px;background:linear-gradient(var(--wine),transparent);animation:cue 2.2s ease-in-out infinite;transform-origin:top}
+@keyframes cue{0%{transform:scaleY(0);opacity:0}40%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+
+/* Einblenden */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.hero .reveal:nth-child(2){transition-delay:.2s}
+.hero .reveal:nth-child(3){transition-delay:.5s}
+.hero .reveal:nth-child(4){transition-delay:.75s}
+
+/* Countdown */
+.countdown{position:relative;display:grid;grid-template-columns:repeat(4,1fr);margin-top:26px;padding:8px;border-radius:18px;background:linear-gradient(160deg,#8f1526,#5e0a17);box-shadow:0 16px 26px rgba(60,10,15,.3),0 2px 3px rgba(60,10,15,.3)}
+.countdown::before{content:"";position:absolute;inset:6px;border:1px solid rgba(255,244,224,.38);border-radius:13px;pointer-events:none}
+.unit{padding:24px 2px 20px}
+.unit + .unit{border-left:1px solid rgba(255,244,224,.22)}
+.unit b{display:block;font-weight:400;font-size:clamp(30px,9.2vw,46px);line-height:1;color:#fffaf0;font-variant-numeric:tabular-nums lining-nums}
+.unit small{display:block;margin-top:12px;font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,246,230,.85)}
+.sub{margin-top:18px;color:var(--muted);font-style:italic;font-size:16px}
+
+/* Tage */
+.days{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;margin:26px 0 40px}
+.day .num{font-size:clamp(58px,17vw,84px);line-height:.9;color:var(--wine);font-weight:400;font-variant-numeric:lining-nums}
+.day .wd{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.day .mo{margin-top:12px;font-size:12.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.days .amp{font-family:var(--script);font-size:50px;color:var(--wine)}
+
+/* Ort */
+.map{display:block;margin:22px auto 0;width:min(100%,430px);filter:drop-shadow(0 14px 16px rgba(60,20,15,.26)) drop-shadow(0 1px 2px rgba(60,20,15,.3));transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.map svg{display:block;width:100%;height:auto;overflow:visible}
+.map:hover{transform:scale(1.03)}
+.map:focus-visible{outline:2px solid var(--wine);outline-offset:8px}
+.place{margin-top:22px;font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--wine-deep)}
+
+/* Fotos */
+.arch{display:block;width:min(100%,360px);margin:30px auto 0;aspect-ratio:3/4;border-radius:999px 999px 6px 6px;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 0 0 9px #fbf3e2,0 0 0 10px var(--line),0 24px 30px rgba(60,20,15,.22)}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.polaroids{display:grid;grid-template-columns:1fr 1fr;gap:24px 16px;margin-top:56px}
+.pol{background:#fdf9f0;padding:9px 9px 32px;box-shadow:0 12px 22px rgba(60,30,20,.22),0 1px 2px rgba(60,30,20,.22);transform:rotate(var(--r));transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;width:100%}
+.pol:hover{transform:rotate(0) scale(1.04);box-shadow:0 18px 30px rgba(60,30,20,.3);z-index:3}
+.pol img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.pol:nth-child(odd){margin-top:22px}
+.reveal.pol{transform:translateY(24px) rotate(var(--r))}
+.reveal.pol.in{transform:rotate(var(--r))}
+.reveal.pol.in:hover{transform:rotate(0) scale(1.04)}
+
+/* Abschluss */
+.btn{display:inline-flex;align-items:center;margin-top:28px;padding:15px 32px;border-radius:999px;background:var(--wine);color:#fffaf0;font-size:11.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 10px 18px rgba(60,10,15,.25);transition:transform .2s,background .2s}
+.btn:hover{background:var(--wine-deep);transform:translateY(-2px)}
+.btn:focus-visible{outline:2px solid var(--wine);outline-offset:4px}
+footer{margin-top:76px;text-align:center;color:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase}
+footer .mono{font-weight:400;font-family:var(--script);font-size:54px;letter-spacing:0;text-transform:none;color:var(--wine);display:block;margin-bottom:6px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- Intro: versiegelter Umschlag, öffnet sich als Video -->
+<div class="intro" id="intro">
+  <div class="stage">
+    <video id="film" src="assets/envelope.mp4" muted playsinline webkit-playsinline preload="auto" poster="assets/envelope.jpg"></video>
+    <img class="poster" src="assets/envelope.jpg" alt="A sealed ivory envelope with a burgundy wax seal">
+    <div class="hint">Tap to open</div>
+  </div>
+  <button class="open-btn" id="open" aria-label="Open the envelope"></button>
+</div>
+
+<audio id="song" src="assets/song.mp3" preload="auto"></audio>
+<button class="sound" id="sound" aria-label="Mute music" aria-pressed="false">
+  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11"/></svg>
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+</button>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow reveal">We warmly invite you</p>
+    <div class="card reveal">
+      <img src="assets/lace.webp" width="900" height="1206" alt="">
+      <div class="card-text">
+        <h1><span>Save</span><span>the Date</span></h1>
+        <p>June 25 &amp; 26, 2027</p>
+      </div>
+    </div>
+    <div class="names reveal">Eelaram Ravikumar<span class="amp">&amp;</span>Sineka Kiritharan</div>
+    <div class="scrollcue reveal" aria-hidden="true"></div>
+  </section>
+
+  <section>
+    <p class="eyebrow reveal">Counting down</p>
+    <div class="countdown reveal" id="countdown">
+      <div class="unit"><b id="cd-d">–</b><small>Days</small></div>
+      <div class="unit"><b id="cd-h">–</b><small>Hours</small></div>
+      <div class="unit"><b id="cd-m">–</b><small>Min</small></div>
+      <div class="unit"><b id="cd-s">–</b><small>Sec</small></div>
+    </div>
+    <p class="sub reveal" id="cd-sub">until our first day</p>
+  </section>
+
+  <section>
+    <p class="eyebrow reveal">Two days</p>
+    <h2 class="reveal">June 2027</h2>
+    <div class="days reveal">
+      <div class="day"><div class="wd">Friday</div><div class="num">25</div><div class="mo">Day one</div></div>
+      <div class="amp">&amp;</div>
+      <div class="day"><div class="wd">Saturday</div><div class="num">26</div><div class="mo">Day two</div></div>
+    </div>
+    <div class="rule reveal"><span>✦</span></div>
+  </section>
+
+  <section>
+    <p class="eyebrow reveal">The two of us</p>
+    <h2 class="reveal">Eelaram &amp; Sineka</h2>
+    <div class="arch reveal"><img src="fotos/kids.jpg" alt="Eelaram and Sineka as children, side by side" loading="lazy"></div>
+    <div class="polaroids">
+      <div class="pol reveal" style="--r:-3.5deg"><img src="fotos/hero.jpg" alt="Eelaram and Sineka looking at each other" loading="lazy" style="object-position:50% 40%"></div>
+      <div class="pol reveal" style="--r:2.5deg"><img src="fotos/g.jpg" alt="Eelaram and Sineka under a cherry blossom tree" loading="lazy" style="object-position:50% 78%"></div>
+      <div class="pol reveal" style="--r:2deg"><img src="fotos/e.jpg" alt="Eelaram and Sineka in traditional attire in the sun" loading="lazy" style="object-position:50% 62%"></div>
+      <div class="pol reveal" style="--r:-2.5deg"><img src="fotos/f.jpg" alt="Eelaram and Sineka smiling at each other in front of a brick wall" loading="lazy" style="object-position:50% 62%"></div>
+      <div class="pol reveal" style="--r:-2deg"><img src="fotos/d.jpg" alt="Eelaram and Sineka in festive attire" loading="lazy" style="object-position:50% 30%"></div>
+      <div class="pol reveal" style="--r:3deg"><img src="fotos/c.jpg" alt="Eelaram and Sineka in the evening light" loading="lazy" style="object-position:50% 55%"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="rule reveal"><span>✦</span></div>
+    <h2 class="reveal" style="margin-top:26px">Invitation to follow</h2>
+    <p class="sub reveal" style="margin-top:10px">All the details will come with your invitation.<br>Until then, mark your calendar.</p>
+    <button class="btn reveal" id="ics">Add to calendar</button>
+  </section>
+
+  <section>
+    <div class="rule reveal"><span>✦</span></div>
+    <p class="eyebrow reveal" style="margin-top:30px">Where</p>
+    <h2 class="reveal">Berlin</h2>
+    <a class="map reveal" href="https://www.google.com/maps/place/Berlin" target="_blank" rel="noopener" aria-label="Open Berlin in Google Maps">
+      <svg viewBox="0 0 505.8 420" role="img" aria-label="Outline of Berlin with a pin">
+        <defs><clipPath id="berlin"><path d="M10.0 313.5L11.7 323.0L16.5 325.6L17.7 323.8L15.9 321.2L19.0 320.4L19.1 324.3L22.9 325.4L23.6 324.9L23.5 321.1L25.4 321.4L26.9 324.3L23.0 326.5L25.1 327.1L24.4 328.2L26.9 332.0L31.2 334.2L36.3 340.5L38.2 340.7L42.6 337.5L45.9 339.3L43.8 339.9L44.2 341.3L46.5 341.5L41.2 346.4L40.2 348.0L40.9 346.4L38.1 346.7L37.7 349.1L40.9 351.9L42.4 351.8L42.9 350.1L40.3 348.2L48.6 340.2L51.5 342.1L60.9 343.9L68.1 343.4L70.2 341.9L69.8 339.3L60.1 341.1L61.2 333.5L88.6 318.3L94.8 317.7L108.7 311.8L123.8 311.6L126.0 322.8L126.6 330.9L132.5 329.2L139.0 331.7L144.2 331.1L160.5 317.5L159.9 319.6L171.5 337.8L194.1 322.9L193.9 327.6L205.7 338.6L214.8 344.1L213.6 350.5L225.8 350.3L226.7 363.0L250.0 365.1L254.8 353.2L248.3 328.4L248.6 324.9L280.9 311.8L284.1 313.0L291.0 332.7L292.6 341.6L318.8 334.6L328.7 340.0L335.0 336.0L332.6 344.4L332.8 349.8L353.5 350.8L374.1 344.1L375.2 345.7L374.8 348.7L376.1 352.4L379.0 354.1L384.0 361.5L383.4 362.9L384.3 365.2L383.6 368.0L400.0 358.9L403.4 364.9L410.2 363.4L409.8 371.4L413.2 372.2L413.5 375.9L407.6 383.0L406.7 398.2L405.6 399.8L406.3 402.3L410.3 408.0L413.9 410.0L416.7 408.6L416.3 404.8L419.9 398.6L420.6 394.1L424.2 391.1L425.6 387.0L427.2 386.5L427.5 381.4L430.8 376.5L438.7 372.8L442.4 375.5L446.0 375.6L445.3 375.0L446.6 374.7L446.5 373.3L451.6 365.7L451.9 363.4L449.6 363.5L450.8 358.7L448.1 359.3L442.9 357.0L441.6 355.9L442.1 354.2L444.8 354.0L449.7 348.7L450.4 346.5L450.7 347.9L451.7 347.3L453.3 344.7L457.9 342.2L463.1 337.1L468.1 338.8L471.4 336.5L474.1 336.8L476.4 334.2L477.1 329.7L479.8 328.1L473.1 317.4L474.0 312.4L478.8 305.1L481.4 305.0L481.7 303.3L479.7 302.5L480.6 298.2L473.1 296.5L470.6 295.0L468.1 292.7L474.3 296.7L482.6 297.7L483.4 291.6L488.1 287.6L492.3 287.4L490.9 293.3L494.9 293.9L495.8 292.0L491.6 291.2L492.8 285.8L490.9 285.4L492.4 282.0L487.2 279.0L472.6 276.5L466.5 269.5L463.1 262.1L459.9 261.7L452.5 255.8L450.9 255.8L453.1 260.4L454.0 265.5L455.4 265.8L454.9 271.8L450.4 271.2L449.8 265.0L448.3 260.6L439.2 258.4L436.2 254.6L428.0 248.7L424.6 249.3L414.3 243.4L410.6 242.8L399.8 249.5L397.7 249.3L397.6 255.2L395.9 255.2L395.8 257.9L394.9 257.7L394.7 253.2L391.8 252.3L390.3 254.1L387.6 253.0L391.3 248.0L389.2 247.1L390.2 241.0L400.9 226.4L396.7 225.0L402.9 205.3L410.1 196.2L421.7 187.4L420.5 182.8L398.0 182.4L397.3 173.0L403.9 173.5L406.6 169.6L406.4 168.0L369.6 159.1L370.5 152.2L368.2 147.2L367.4 137.8L366.1 133.8L363.4 133.8L361.3 130.6L356.7 131.5L351.9 122.8L341.2 114.0L327.2 108.8L313.1 108.9L306.5 93.4L304.8 93.6L305.1 91.6L308.8 79.0L309.6 77.0L309.9 76.7L311.2 75.9L311.4 69.0L320.1 64.5L323.4 51.5L323.8 46.1L321.9 46.3L321.1 43.9L316.5 45.7L300.5 34.6L296.6 29.1L298.9 15.6L289.8 20.6L288.9 18.8L292.8 10.8L292.4 10.0L290.8 11.9L289.5 10.6L282.6 19.9L278.0 17.7L271.7 25.2L280.1 31.3L288.1 32.5L288.4 35.4L285.5 38.0L282.5 38.9L278.1 42.5L270.2 40.3L264.5 41.1L263.7 45.9L259.6 47.0L259.1 50.4L259.7 54.5L255.0 55.1L252.6 57.5L247.0 52.8L245.3 50.6L245.7 49.3L243.9 48.0L240.7 48.9L233.5 42.3L231.1 43.2L230.1 45.7L229.2 46.5L229.4 48.3L227.9 49.2L228.2 52.2L227.2 54.9L221.9 56.4L222.6 57.8L219.6 58.8L217.6 62.1L218.4 64.2L218.0 65.9L204.4 72.3L200.0 72.6L199.7 71.3L189.3 72.7L183.5 69.4L172.2 66.1L164.7 67.3L170.2 64.0L167.0 55.3L167.9 55.0L167.3 52.6L168.8 51.8L169.6 48.9L163.1 36.1L170.1 31.5L168.0 28.8L158.8 29.2L150.4 27.5L149.8 37.0L152.1 37.1L151.1 50.8L140.9 52.5L135.5 51.3L137.7 58.6L137.0 67.7L105.4 66.0L104.9 70.6L102.7 75.6L101.3 76.7L95.6 88.7L91.8 91.8L92.3 94.5L96.5 100.7L104.2 108.6L103.2 114.4L95.9 113.3L95.5 115.4L94.5 115.1L65.0 101.0L59.6 102.4L54.0 109.2L49.8 111.8L44.0 114.5L39.3 114.6L38.6 119.6L40.3 119.7L41.9 123.7L54.2 119.3L56.8 124.5L57.1 131.3L51.5 146.3L52.6 151.9L51.3 155.6L44.6 155.6L40.4 151.8L36.4 166.2L35.9 171.8L32.5 182.2L31.0 197.9L49.6 194.8L51.4 197.4L68.1 207.2L54.2 222.5L38.9 242.1L31.2 245.1L30.9 249.8L26.0 258.9L26.7 261.2L26.0 265.6L27.6 268.3L27.1 272.3L25.1 276.7L32.1 284.6L32.7 287.3L35.1 290.8L27.1 298.4L27.6 302.1L21.7 308.3L17.9 306.7L15.4 310.7L10.0 313.5Z"/></clipPath></defs>
+        <image href="assets/map.jpg" x="-74.7" y="-40.6" width="626.7" height="470" preserveAspectRatio="xMidYMid slice" clip-path="url(#berlin)"/>
+        <path d="M10.0 313.5L11.7 323.0L16.5 325.6L17.7 323.8L15.9 321.2L19.0 320.4L19.1 324.3L22.9 325.4L23.6 324.9L23.5 321.1L25.4 321.4L26.9 324.3L23.0 326.5L25.1 327.1L24.4 328.2L26.9 332.0L31.2 334.2L36.3 340.5L38.2 340.7L42.6 337.5L45.9 339.3L43.8 339.9L44.2 341.3L46.5 341.5L41.2 346.4L40.2 348.0L40.9 346.4L38.1 346.7L37.7 349.1L40.9 351.9L42.4 351.8L42.9 350.1L40.3 348.2L48.6 340.2L51.5 342.1L60.9 343.9L68.1 343.4L70.2 341.9L69.8 339.3L60.1 341.1L61.2 333.5L88.6 318.3L94.8 317.7L108.7 311.8L123.8 311.6L126.0 322.8L126.6 330.9L132.5 329.2L139.0 331.7L144.2 331.1L160.5 317.5L159.9 319.6L171.5 337.8L194.1 322.9L193.9 327.6L205.7 338.6L214.8 344.1L213.6 350.5L225.8 350.3L226.7 363.0L250.0 365.1L254.8 353.2L248.3 328.4L248.6 324.9L280.9 311.8L284.1 313.0L291.0 332.7L292.6 341.6L318.8 334.6L328.7 340.0L335.0 336.0L332.6 344.4L332.8 349.8L353.5 350.8L374.1 344.1L375.2 345.7L374.8 348.7L376.1 352.4L379.0 354.1L384.0 361.5L383.4 362.9L384.3 365.2L383.6 368.0L400.0 358.9L403.4 364.9L410.2 363.4L409.8 371.4L413.2 372.2L413.5 375.9L407.6 383.0L406.7 398.2L405.6 399.8L406.3 402.3L410.3 408.0L413.9 410.0L416.7 408.6L416.3 404.8L419.9 398.6L420.6 394.1L424.2 391.1L425.6 387.0L427.2 386.5L427.5 381.4L430.8 376.5L438.7 372.8L442.4 375.5L446.0 375.6L445.3 375.0L446.6 374.7L446.5 373.3L451.6 365.7L451.9 363.4L449.6 363.5L450.8 358.7L448.1 359.3L442.9 357.0L441.6 355.9L442.1 354.2L444.8 354.0L449.7 348.7L450.4 346.5L450.7 347.9L451.7 347.3L453.3 344.7L457.9 342.2L463.1 337.1L468.1 338.8L471.4 336.5L474.1 336.8L476.4 334.2L477.1 329.7L479.8 328.1L473.1 317.4L474.0 312.4L478.8 305.1L481.4 305.0L481.7 303.3L479.7 302.5L480.6 298.2L473.1 296.5L470.6 295.0L468.1 292.7L474.3 296.7L482.6 297.7L483.4 291.6L488.1 287.6L492.3 287.4L490.9 293.3L494.9 293.9L495.8 292.0L491.6 291.2L492.8 285.8L490.9 285.4L492.4 282.0L487.2 279.0L472.6 276.5L466.5 269.5L463.1 262.1L459.9 261.7L452.5 255.8L450.9 255.8L453.1 260.4L454.0 265.5L455.4 265.8L454.9 271.8L450.4 271.2L449.8 265.0L448.3 260.6L439.2 258.4L436.2 254.6L428.0 248.7L424.6 249.3L414.3 243.4L410.6 242.8L399.8 249.5L397.7 249.3L397.6 255.2L395.9 255.2L395.8 257.9L394.9 257.7L394.7 253.2L391.8 252.3L390.3 254.1L387.6 253.0L391.3 248.0L389.2 247.1L390.2 241.0L400.9 226.4L396.7 225.0L402.9 205.3L410.1 196.2L421.7 187.4L420.5 182.8L398.0 182.4L397.3 173.0L403.9 173.5L406.6 169.6L406.4 168.0L369.6 159.1L370.5 152.2L368.2 147.2L367.4 137.8L366.1 133.8L363.4 133.8L361.3 130.6L356.7 131.5L351.9 122.8L341.2 114.0L327.2 108.8L313.1 108.9L306.5 93.4L304.8 93.6L305.1 91.6L308.8 79.0L309.6 77.0L309.9 76.7L311.2 75.9L311.4 69.0L320.1 64.5L323.4 51.5L323.8 46.1L321.9 46.3L321.1 43.9L316.5 45.7L300.5 34.6L296.6 29.1L298.9 15.6L289.8 20.6L288.9 18.8L292.8 10.8L292.4 10.0L290.8 11.9L289.5 10.6L282.6 19.9L278.0 17.7L271.7 25.2L280.1 31.3L288.1 32.5L288.4 35.4L285.5 38.0L282.5 38.9L278.1 42.5L270.2 40.3L264.5 41.1L263.7 45.9L259.6 47.0L259.1 50.4L259.7 54.5L255.0 55.1L252.6 57.5L247.0 52.8L245.3 50.6L245.7 49.3L243.9 48.0L240.7 48.9L233.5 42.3L231.1 43.2L230.1 45.7L229.2 46.5L229.4 48.3L227.9 49.2L228.2 52.2L227.2 54.9L221.9 56.4L222.6 57.8L219.6 58.8L217.6 62.1L218.4 64.2L218.0 65.9L204.4 72.3L200.0 72.6L199.7 71.3L189.3 72.7L183.5 69.4L172.2 66.1L164.7 67.3L170.2 64.0L167.0 55.3L167.9 55.0L167.3 52.6L168.8 51.8L169.6 48.9L163.1 36.1L170.1 31.5L168.0 28.8L158.8 29.2L150.4 27.5L149.8 37.0L152.1 37.1L151.1 50.8L140.9 52.5L135.5 51.3L137.7 58.6L137.0 67.7L105.4 66.0L104.9 70.6L102.7 75.6L101.3 76.7L95.6 88.7L91.8 91.8L92.3 94.5L96.5 100.7L104.2 108.6L103.2 114.4L95.9 113.3L95.5 115.4L94.5 115.1L65.0 101.0L59.6 102.4L54.0 109.2L49.8 111.8L44.0 114.5L39.3 114.6L38.6 119.6L40.3 119.7L41.9 123.7L54.2 119.3L56.8 124.5L57.1 131.3L51.5 146.3L52.6 151.9L51.3 155.6L44.6 155.6L40.4 151.8L36.4 166.2L35.9 171.8L32.5 182.2L31.0 197.9L49.6 194.8L51.4 197.4L68.1 207.2L54.2 222.5L38.9 242.1L31.2 245.1L30.9 249.8L26.0 258.9L26.7 261.2L26.0 265.6L27.6 268.3L27.1 272.3L25.1 276.7L32.1 284.6L32.7 287.3L35.1 290.8L27.1 298.4L27.6 302.1L21.7 308.3L17.9 306.7L15.4 310.7L10.0 313.5Z" fill="none" stroke="#7d1020" stroke-width="2.6" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <p class="place reveal">Berlin, Germany</p>
+    <p class="sub reveal" style="margin-top:8px">The exact venue will follow with the invitation.</p>
+  </section>
+
+  <footer>
+    <span class="mono">E &amp; S</span>
+    25 &amp; 26 · 06 · 2027
+  </footer>
+</main>
+
+<script>
+(function(){
+  var $ = function(s){return document.querySelector(s)};
+  var intro = $('#intro'), film = $('#film'), song = $('#song'), soundBtn = $('#sound');
+  var SONG_VOLUME = 0.28;   // Lautstärke der Musik (0–1)
+
+  // Einblenden beim Scrollen
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+
+  // Musik: leise einblenden
+  var fadeTimer;
+  function fadeTo(v, ms){
+    clearInterval(fadeTimer);
+    var from = song.volume, t0 = Date.now();
+    fadeTimer = setInterval(function(){
+      var k = Math.min(1, (Date.now()-t0)/ms);
+      song.volume = Math.max(0, Math.min(1, from + (v-from)*k));
+      if (k === 1){ clearInterval(fadeTimer); if (v === 0) song.pause(); }
+    }, 50);
+  }
+  function startSong(){
+    song.volume = 0;
+    var p = song.play();
+    if (p && p.catch) p.catch(function(){ soundBtn.classList.add('muted'); });
+    fadeTo(SONG_VOLUME, 2500);
+  }
+  soundBtn.addEventListener('click', function(){
+    var mute = !soundBtn.classList.contains('muted');
+    soundBtn.classList.toggle('muted', mute);
+    soundBtn.setAttribute('aria-pressed', mute);
+    soundBtn.setAttribute('aria-label', mute ? 'Play music' : 'Mute music');
+    if (mute) fadeTo(0, 500);
+    else { song.play(); fadeTo(SONG_VOLUME, 800); }
+  });
+  song.addEventListener('ended', function(){ soundBtn.classList.add('muted'); song.currentTime = 0; });
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) song.pause();
+    else if (opened && !soundBtn.classList.contains('muted') && song.currentTime > 0) song.play();
+  });
+
+  // Umschlag öffnen
+  var opened = false, finished = false;
+  function finish(){
+    if (finished) return; finished = true;
+    intro.classList.add('done');
+    document.body.classList.remove('locked');
+    soundBtn.classList.add('show');
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  }
+  function open(){
+    if (opened) return; opened = true;
+    startSong();
+    var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (reduce){ finish(); return; }
+    var p = film.play();
+    if (p && p.then) p.then(function(){ intro.classList.add('playing'); }).catch(finish);
+    else intro.classList.add('playing');
+    setTimeout(finish, 9000); // Sicherheitsnetz
+  }
+  film.addEventListener('timeupdate', function(){
+    if (film.duration && film.currentTime > film.duration - 0.35) finish();
+  });
+  film.addEventListener('ended', finish);
+  film.addEventListener('error', function(){ if (opened) finish(); });
+  $('#open').addEventListener('click', open);
+
+  // Countdown bis 25.06.2027
+  var target = new Date(2027, 5, 25, 0, 0, 0).getTime();
+  var pad = function(n){ return n<10 ? '0'+n : ''+n };
+  function tick(){
+    var diff = target - Date.now();
+    if (diff <= 0){
+      ['d','h','m','s'].forEach(function(k){ $('#cd-'+k).textContent = '0'; });
+      $('#cd-sub').textContent = 'The day is here!';
+      return;
+    }
+    var s = Math.floor(diff/1000);
+    $('#cd-d').textContent = Math.floor(s/86400);
+    $('#cd-h').textContent = pad(Math.floor(s%86400/3600));
+    $('#cd-m').textContent = pad(Math.floor(s%3600/60));
+    $('#cd-s').textContent = pad(s%60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Kalendereintrag (ganztägig, 25.–26.06.2027)
+  $('#ics').addEventListener('click', function(){
+    var ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Save the Date//EN','BEGIN:VEVENT',
+      'UID:save-the-date-20270625@eelaram-sineka','DTSTAMP:20261124T000000Z',
+      'DTSTART;VALUE=DATE:20270625','DTEND;VALUE=DATE:20270627',
+      'SUMMARY:Save the Date – Eelaram & Sineka','LOCATION:Berlin\\, Germany','DESCRIPTION:Invitation to follow.',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'}));
+    a.download = 'save-the-date-eelaram-sineka.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+})();
+</script>
+</body>
+</html>
